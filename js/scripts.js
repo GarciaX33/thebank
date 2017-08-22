@@ -9,11 +9,11 @@ function BankAccount (inputName, initialDeposit, balance, inputDeposit, inputWit
   this.userWithdrawal = inputWithdrawal;
 }
 
-BankAccount.prototype.addDeposit = function () {
-  return this.userBalance += this.userDeposit;
+BankAccount.prototype.addDeposit = function (deposit) {
+  return this.userBalance += deposit;
 }
-BankAccount.prototype.subtractWithdrawal = function () {
-  return this.userBalance -= this.userWithdrawal;
+BankAccount.prototype.subtractWithdrawal = function (withdrawal) {
+  return this.userBalance -= withdrawal;
 }
 
 var resetFields = function () {
@@ -32,12 +32,12 @@ $(document).ready(function(){
     var initialDeposit = parseInt($("input#initialDeposit").val());
     var balance = initialDeposit;
     var userInfo = new BankAccount(inputName, initialDeposit, balance);
-    userInfo.addDeposit();
+    // userInfo.addDeposit();
 
     $(".hideThisShit").fadeIn(1000);
 
     // $("div.visible").toggleClass("hideThisShit");
-    $("#balance").text("$" + balance.toFixed(2));
+    $("#balance").text("$" + userInfo.userBalance);
 
     $("#inputNameFinal").text(inputName);   //----- changed this
     // console.log(inputName)
@@ -47,29 +47,20 @@ $(document).ready(function(){
       event.preventDefault();
 
       var userDeposit = parseInt($("#inputDeposit").val());
-      newBalance = (balance + userDeposit)
 
-      console.log(newBalance);
-
-      $("#balance").text("$" + balance.toFixed(2));
+      $("#balance").text("$" + userInfo.userBalance);
       $("form.depAm").trigger('reset');
-
     });
-    resetFields();
 
     $("form.witAm").submit(function(event){
       event.preventDefault();
 
-      var userWithdrawal = parseInt($("input.inputWithdrawal").val());
-      userInfo.userWithdrawal = userWithdrawal;
-      userInfo.subtractWithdrawal();
+      var userWithdrawal = parseInt($("#inputWithdrawal").val());
+      userInfo.subtractWithdrawal(userWithdrawal);
 
-
-      $("#balance").text("$" + balance.toFixed(2));
+      $("#balance").text("$" + userInfo.userBalance);
       $("form.witAm").trigger('reset');
-
     });
-    resetFields();
 
   });
 });
