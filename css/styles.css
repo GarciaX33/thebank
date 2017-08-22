@@ -1,0 +1,13 @@
+.jumbotron {
+  margin: 50px;
+  padding: 30px;
+}
+
+.hideThisShit {
+  text-align: center;
+  display: none;
+}
+
+p {
+  font-size: 80px;
+}
